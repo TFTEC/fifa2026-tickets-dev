@@ -390,6 +390,26 @@ O workflow (ação `function`) faz: restore → build → test → publish → d
 
 ✅ **Checkpoint:** workflow verde; o step **"[function] Smoke test (AC-10)"** mostra `Smoke test OK — .correlationId presente`.
 
+### 10.3 Deploy do frontend (o portal) — e a lição do `VITE_API_URL`
+
+Rode o workflow de novo com **`acao=frontend`** (ou `tudo`). O step `[frontend]` builda o Vite e publica o portal no Web App do frontend.
+
+> ⚠️ **Pré-requisito (igual à Function, Fase 7.4):** ligue o **SCM Basic Auth `On`** no App Service do **frontend** e capture o secret `AZURE_FRONTEND_PUBLISH_PROFILE` **depois** de ligar — senão o deploy falha com `Publish profile is invalid for app-name`.
+
+> 🧭 **Lição de conectividade — `VITE_API_URL=/api` (RELATIVO), nunca a URL absoluta do backend.**
+>
+> O navegador do aluno **não alcança o backend diretamente** quando o backend é **privado** (`publicNetworkAccess=Disabled`, atrás de VNet/Private Endpoint): uma chamada à URL **absoluta** `https://<seu-backend>.azurewebsites.net/api` resulta em **`Failed to fetch`** no browser e a lista de jogos vem **vazia** ("0 jogos encontrados").
+>
+> O caminho correto é **same-origin**: o bundle chama **`/api`** (relativo) → o **`web.config`** do frontend faz o **proxy reverso** para o backend, *server-side*, através da VNet (`^api/(.*)` → `__BACKEND_URL__/api/{R:1}`).
+>
+> Por isso o build define **`VITE_API_URL: /api`** (relativo). E isto **continua parametrizável** — o nome real do backend vive na Variable **`BACKEND_URL`**, que o `scripts/set-backend-url.mjs` injeta no `web.config` (`__BACKEND_URL__` → sua URL):
+> - **`VITE_API_URL=/api`** → fixo e relativo (não é URL, é caminho same-origin; **igual para todo aluno**).
+> - **`BACKEND_URL=https://<seu-backend>…`** → **parametrizado por aluno** (alimenta o proxy do `web.config`).
+>
+> ❌ **Nunca** usar a URL absoluta em `VITE_API_URL` (ex.: `${{ vars.BACKEND_URL }}/api`): isso **embute** o endereço do backend no JS e só funciona se o backend for **público**. Com backend privado, **quebra** (matches vazio). A regra: o aluno parametriza **só** `BACKEND_URL`; o `/api` nunca muda.
+
+✅ **Checkpoint:** abra `https://<seu-frontend>.azurewebsites.net/matches` → a lista de **jogos carrega** (não "0 jogos encontrados"). Se vier vazia, confira nesta ordem: (1) `VITE_API_URL` está `/api` (relativo, não absoluto)? (2) a Variable `BACKEND_URL` aponta para o **seu** backend? (3) o frontend está **integrado à VNet** para alcançar o backend privado? (4) no DevTools (F12 → Network), a chamada de `matches` sai do **mesmo host do frontend** (`<seu-frontend>/api/matches`) e retorna **200**.
+
 ---
 
 ## Fase 11 — Application Insights: o que é e como vamos usar
