@@ -98,7 +98,7 @@ npm run build
 
 ---
 
-## Live (privado)
+## Live (privado) ##
 
 - Frontend: https://fifa2026-web.azurewebsites.net
 - Backend: https://fifa2026-back.azurewebsites.net (CORS allowlist do front)
