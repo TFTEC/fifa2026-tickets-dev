@@ -1,4 +1,4 @@
-# FIFA 2026 Tickets — TFTEC Copa do Mundo Azure
+# FIFA 2026 Tickets — TFTEC Copa do Mundo Azure..
 
 Aplicação educacional fictícia de venda de ingressos para a Copa do Mundo FIFA 2026, usada no evento **TFTEC "Copa do Mundo Azure"** como demo de modernização VM → PaaS no Azure.
 
