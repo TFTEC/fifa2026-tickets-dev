@@ -106,6 +106,12 @@ npm run build
 
 ---
 
+## Extra
+
+- Frontend: https://tickets.sgcloudops.cloud
+
+---
+
 ## Licença
 
 Projeto educacional. Uso restrito ao evento TFTEC.
