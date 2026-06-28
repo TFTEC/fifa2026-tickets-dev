@@ -108,4 +108,4 @@ npm run build
 
 ## Licença
 
-Projeto educacional. Uso restrito ao evento TFTEC.
+Projeto educacional. Uso restrito ao evento TFTEC..
