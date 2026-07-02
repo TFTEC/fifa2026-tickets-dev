@@ -1,0 +1,15 @@
+name: Quartas - Teste Simples
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Hello Quartas
+        run: echo "Quartas workflow funcionando 🚀"
