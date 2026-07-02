@@ -351,3 +351,4 @@ jobs:
           app-name: ${{ inputs.frontend_app_name || vars.FRONTEND_APP_NAME }}
           publish-profile: ${{ secrets.AZURE_FRONTEND_PUBLISH_PROFILE }}
           package: '${{ env.FRONTEND_WORKING_DIR }}/dist'
+
