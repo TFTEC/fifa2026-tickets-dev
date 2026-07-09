@@ -9,6 +9,7 @@ Aplicação dividida em **3 camadas**, com a mesma codebase rodando tanto em **V
 
 ---
 
+
 ## Cenário A — 3 Máquinas Virtuais
 
 ```
